@@ -38,12 +38,12 @@ build_cmd="mvn clean compile assembly:single"
 
 $build_cmd
 
-mvn install:install-file -Dfile=./target/opcua-adapter-0.0.1-SNAPSHOT-jar-with-dependencies.jar -DgroupId=com.edge.protocol -DartifactId=opcua-adapter -Dversion=0.0.1-SNAPSHOT-jar-with-dependencies -Dpackaging=jar -DgeneratePom=true
+mvn install:install-file -Dfile=./target/opcua-adapter-1.0.0-Release-jar-with-dependencies.jar -DgroupId=com.edge.protocol -DartifactId=opcua-adapter -Dversion=1.0.0-Release-jar-with-dependencies -Dpackaging=jar -DgeneratePom=true
 
 cd $build_home
 cd $client_home
 $build_cmd
-cp ./target/opcua-client-0.0.1-SNAPSHOT-jar-with-dependencies.jar ../target
+cp ./target/opcua-client-1.0.0-Release-jar-with-dependencies.jar ../target
 cd ../$server_home
 $build_cmd
-cp ./target/opcua-server-0.0.1-SNAPSHOT-jar-with-dependencies.jar ../target
+cp ./target/opcua-server-1.0.0-Release-jar-with-dependencies.jar ../target

@@ -677,6 +677,8 @@ public class ProtocolManager implements MessageInterface {
     if (statusCallback == null) {
       logger.info("status callback is not available");
       return;
+    } else {
+      logger.info("status callback is alive");
     }
 
     if (EdgeStatusCode.STATUS_CLIENT_STARTED == status
@@ -689,6 +691,8 @@ public class ProtocolManager implements MessageInterface {
     } else if (EdgeStatusCode.STATUS_CONNECTED == status
         || EdgeStatusCode.STATUS_DISCONNECTED == status) {
       statusCallback.onNetworkStatus(ep, status);
+    } else {
+      logger.info("there is no available status code");
     }
   }
 

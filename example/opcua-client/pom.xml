@@ -21,9 +21,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.edge.protocol</groupId>
 	<artifactId>opcua-client</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-Release</version>
 	<properties>
-		<opcua-adapter.version>0.0.1-SNAPSHOT-jar-with-dependencies</opcua-adapter.version>
+		<opcua-adapter.version>1.0.0-Release-jar-with-dependencies</opcua-adapter.version>
 	</properties>
 	<build>
 		<plugins>
