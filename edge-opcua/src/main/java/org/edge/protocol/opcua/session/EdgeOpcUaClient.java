@@ -84,26 +84,31 @@ public class EdgeOpcUaClient implements EdgeBaseClient {
     };
   };
 
-  Thread providerThread = new Thread() {
-    public void run() {
-      try {
-        initEdgeProvider();
-      } catch (Exception e) {
-        e.printStackTrace();
-        ErrorHandler.getInstance().addErrorMessage(new EdgeNodeInfo.Builder().build(),
-            new EdgeResult.Builder(EdgeStatusCode.STATUS_INTERNAL_ERROR).build(),
-            EdgeOpcUaCommon.DEFAULT_REQUEST_ID);
-      }
-    };
-  };
-
   SessionActivityListener listener = new SessionActivityListener() {
     @Override
     public void onSessionActive(UaSession session) {
       logger.debug("onSessionActive session={}, {}", session.getSessionId(),
           session.getSessionName());
 
-      providerThread.start();
+      Thread providerThread = new Thread() {
+        public void run() {
+          try {
+            initEdgeProvider();
+          } catch (Exception e) {
+            e.printStackTrace();
+            ErrorHandler.getInstance().addErrorMessage(new EdgeNodeInfo.Builder().build(),
+                new EdgeResult.Builder(EdgeStatusCode.STATUS_INTERNAL_ERROR).build(),
+                EdgeOpcUaCommon.DEFAULT_REQUEST_ID);
+          }
+        };
+      };
+
+      if (providerThread.getState() == Thread.State.NEW) {
+        logger.info("providerThread start");
+        providerThread.start();
+      } else {
+        logger.info("providerThread status : {}", providerThread.getState());
+      }
 
       EdgeEndpointInfo ep = new EdgeEndpointInfo.Builder(endpointUri).setConfig(config).build();
       ProtocolManager.getProtocolManagerInstance().onStatusCallback(ep,
